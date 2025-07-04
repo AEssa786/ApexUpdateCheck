@@ -1,6 +1,7 @@
 import tweepy
 import requests
 import os
+import datetime
 
 bearer_token = os.getenv("TWITTER_BEARER_TOKEN")
 
@@ -27,7 +28,9 @@ def sendMessage(message):
 
 client = authenticate_twitter_app(bearer_token)
 
-tweets = client.get_users_tweets(respawnId, max_results=5)
+yesterday = datetime.datetime.now() - datetime.timedelta(days=2)
+
+tweets = client.get_users_tweets(respawnId, max_results=5, start_time=yesterday)
 
 news = []
 
@@ -38,4 +41,6 @@ for tweet in tweets.data:
         news.append(tweet.text)
         
 
-sendMessage("\n\n--------------------------------------------\n\n".join(news))
+if news:
+    sendMessage("\n\n--------------------------------------------\n\n".join(news))
+
