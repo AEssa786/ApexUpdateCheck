@@ -28,7 +28,12 @@ def sendMessage(message):
 
 client = authenticate_twitter_app(bearer_token)
 
-yesterday = datetime.datetime.now() - datetime.timedelta(days=2)
+
+if datetime.datetime.now().weekday() == 5:
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=1)
+
+else:
+    yesterday = datetime.datetime.now() - datetime.timedelta(days=2)
 
 tweets = client.get_users_tweets(respawnId, max_results=5, start_time=yesterday)
 
