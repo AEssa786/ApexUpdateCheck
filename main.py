@@ -41,9 +41,10 @@ news = []
 
 keywords = {"update", "patch", "release", "fix", "bug", "changes", "features"}
 
-for tweet in tweets.data:
-    if any(keyword in tweet.text.lower() for keyword in keywords):
-        news.append(tweet.text)
+if tweets.data:
+    for tweet in tweets.data:
+        if any(keyword in tweet.text.lower() for keyword in keywords):
+            news.append(tweet.text)
         
 
 if news:
